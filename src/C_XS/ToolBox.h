@@ -88,13 +88,18 @@ typedef  Z_longword         *Z_longwordptr;
 #ifdef __cplusplus
     typedef bool boolean;
 #else
+    #ifndef I_STDBOOL
     #ifdef MACOS_TRADITIONAL
         #define boolean Boolean
     #elif PERL_DARWIN
         #define boolean bool
     #else
-        typedef enum { false = FALSE, true = TRUE } boolean;
+        typedef int boolean;
+        enum { false, true };
     #endif
+    #else
+        typedef int boolean;
+    #endif /* I_STDBOOL */
 #endif
 
 #define and         &&      /* logical (boolean) operators: lower case */
